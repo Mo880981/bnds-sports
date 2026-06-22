@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="BNDS 运动圈 — 运动打卡">
+  <title>打卡 · BNDS 运动圈</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/checkin.css">
+</head>
+<body>
+
+  <div class="bg-layer" aria-hidden="true">
+    <div class="bg-orb bg-orb--1"></div>
+    <div class="bg-orb bg-orb--2"></div>
+    <div class="bg-noise"></div>
+  </div>
+
+  <nav class="nav">
+    <a class="nav-brand" href="index.html">
+      <div class="nav-title">BNDS<em>运动圈</em></div>
+    </a>
+    <div class="nav-links-inline app-nav">
+      <a href="checkin.html" class="active">打卡</a>
+      <a href="feed.html">动态</a>
+      <a href="buddy.html">约练</a>
+    </div>
+  </nav>
+
+  <main class="page checkin-page">
+
+    <header class="checkin-head">
+      <p class="section-index">Check-in</p>
+      <h1>记录今天的运动</h1>
+      <p>选择项目、输入时长，系统自动估算消耗。接入 Supabase 后可与同学同步。</p>
+      <div class="rainbow-rule"></div>
+      <p class="sync-bar" data-sync-status data-state="loading">连接中…</p>
+    </header>
+
+    <div class="checkin-layout">
+
+      <form class="checkin-panel" id="checkin-form">
+        <div class="checkin-panel-top"></div>
+        <div class="checkin-panel-body">
+
+          <div class="field">
+            <label class="field-label">运动项目</label>
+            <div class="sport-groups" id="sport-grid"></div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="duration">时长</label>
+            <div class="duration-wrap">
+              <input
+                type="number"
+                id="duration"
+                class="duration-input"
+                min="1"
+                max="600"
+                placeholder="0"
+                inputmode="numeric"
+                required
+              >
+              <span class="duration-unit">分钟</span>
+            </div>
+            <div class="duration-presets">
+              <button type="button" class="preset-btn" data-min="15">15</button>
+              <button type="button" class="preset-btn" data-min="30">30</button>
+              <button type="button" class="preset-btn" data-min="45">45</button>
+              <button type="button" class="preset-btn" data-min="60">60</button>
+              <button type="button" class="preset-btn" data-min="90">90</button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="date">日期</label>
+            <input type="date" id="date" class="field-input field-input--narrow" required>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="note">备注（可选）</label>
+            <textarea
+              id="note"
+              class="field-textarea"
+              placeholder="今天练得怎么样？"
+              maxlength="200"
+            ></textarea>
+          </div>
+
+          <div class="checkin-submit">
+            <button type="submit" class="btn btn-primary btn-full" id="submit-btn" disabled>
+              完成打卡
+            </button>
+          </div>
+
+        </div>
+      </form>
+
+      <aside class="checkin-side">
+
+        <div class="preview-card">
+          <p class="preview-card-label">预计消耗</p>
+          <div class="preview-kcal" id="preview-kcal">—</div>
+          <div class="preview-kcal-unit">kcal</div>
+          <div class="preview-detail" id="preview-detail">
+            <span class="preview-empty">请选择运动项目</span>
+          </div>
+        </div>
+
+        <div class="weight-bar">
+          <span>体重 <strong id="display-weight">—</strong></span>
+          <button type="button" class="weight-edit" id="edit-weight">修改</button>
+        </div>
+
+      </aside>
+    </div>
+
+    <section class="history-block">
+      <div class="section-head section-head--row">
+        <div>
+          <p class="section-index">History</p>
+          <h2 class="section-title">打卡记录</h2>
+        </div>
+      </div>
+      <div class="history-summary" id="history-summary"></div>
+      <p class="history-empty" id="history-empty">还没有记录。完成第一次打卡后会显示在这里。</p>
+      <div class="history-list" id="history-list" style="display:none"></div>
+    </section>
+
+  </main>
+
+  <nav class="app-tabs" aria-label="主导航">
+    <a class="app-tab active" href="checkin.html">打卡</a>
+    <a class="app-tab" href="feed.html">动态</a>
+    <a class="app-tab" href="buddy.html">约练</a>
+  </nav>
+
+  <footer class="footer">
+    <span class="footer-brand">BNDS 运动圈</span>
+    <span class="footer-note">BNDS 运动圈 · Supabase 云端</span>
+  </footer>
+
+  <!-- 首次设置体重 -->
+  <div class="setup-overlay" id="setup-overlay">
+    <div class="setup-box">
+      <div class="setup-box-top"></div>
+      <div class="setup-box-body">
+        <h2>设置体重</h2>
+        <p>用于估算卡路里消耗。会同步到你的 Supabase 账号空间。</p>
+        <input
+          type="number"
+          id="setup-weight"
+          class="setup-weight-input"
+          placeholder="60"
+          min="30"
+          max="200"
+          step="0.1"
+          inputmode="decimal"
+        >
+        <p class="setup-hint">单位 kg，可之后在侧边栏修改</p>
+        <p class="setup-error" id="setup-error"></p>
+        <button type="button" class="btn btn-primary btn-full" id="setup-confirm">确认</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/checkin.js"></script>
+</body>
+</html>

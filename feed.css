@@ -1,0 +1,396 @@
+/* BNDS 运动圈 — 动态页 */
+
+.feed-page {
+  padding: 100px clamp(20px, 5vw, 48px) 100px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.feed-head {
+  margin-bottom: 40px;
+}
+
+.feed-head h1 {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+
+.feed-head p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ── 发布框 ── */
+.compose {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  margin-bottom: 48px;
+}
+
+.compose-top {
+  height: 3px;
+  background: var(--rainbow);
+}
+
+.compose-body {
+  padding: 24px;
+}
+
+.compose-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.compose-avatar {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--surface);
+  flex-shrink: 0;
+}
+
+.compose-user-info {
+  font-size: 13px;
+}
+
+.compose-user-name {
+  font-weight: 500;
+}
+
+.compose-user-grade {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.compose-textarea {
+  width: 100%;
+  min-height: 96px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font-family: var(--font);
+  font-size: 15px;
+  color: var(--ink);
+  line-height: 1.65;
+  resize: vertical;
+  outline: none;
+}
+
+.compose-textarea::placeholder {
+  color: var(--muted);
+}
+
+.compose-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.compose-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.compose-select {
+  flex: 1;
+  min-width: 160px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  font-family: var(--font);
+  font-size: 13px;
+  color: var(--ink);
+  outline: none;
+  cursor: pointer;
+}
+
+.compose-select:focus {
+  border-color: rgba(18, 18, 18, 0.25);
+}
+
+.compose-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.char-count {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.char-count.warn {
+  color: #c0392b;
+}
+
+.compose-submit {
+  padding: 12px 24px;
+}
+
+.compose-submit:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.sport-preview {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.sport-preview.show {
+  display: flex;
+}
+
+.sport-preview-kcal {
+  margin-left: auto;
+  font-weight: 500;
+  background: var(--rainbow);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── 动态列表 ── */
+.feed-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.feed-card {
+  padding: 24px;
+  background: var(--surface);
+}
+
+.feed-card-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: start;
+  margin-bottom: 12px;
+}
+
+.feed-avatar {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--surface);
+  flex-shrink: 0;
+}
+
+.feed-author-block {
+  min-width: 0;
+}
+
+.feed-author {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.feed-time {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.feed-badge {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+}
+
+.feed-sport-tag {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.feed-content {
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin-bottom: 16px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.feed-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.like-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 0;
+  background: none;
+  border: none;
+  font-family: var(--font);
+  font-size: 13px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.like-btn:hover {
+  color: var(--ink);
+}
+
+.like-btn.liked {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.like-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.like-btn.liked .like-icon {
+  background: var(--rainbow);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.feed-empty {
+  padding: 64px 24px;
+  text-align: center;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ── 资料设置 ── */
+.profile-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(246, 246, 244, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  transition: opacity 0.4s, visibility 0.4s;
+}
+
+.profile-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.profile-box {
+  width: 100%;
+  max-width: 380px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.profile-box-top {
+  height: 3px;
+  background: var(--rainbow);
+}
+
+.profile-box-body {
+  padding: 36px 32px;
+}
+
+.profile-box-body h2 {
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.profile-box-body > p {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 24px;
+  line-height: 1.7;
+}
+
+.profile-field {
+  margin-bottom: 16px;
+}
+
+.profile-field label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.profile-input,
+.profile-select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  font-family: var(--font);
+  font-size: 15px;
+  color: var(--ink);
+  outline: none;
+}
+
+.profile-error {
+  font-size: 12px;
+  color: #c0392b;
+  min-height: 18px;
+  margin-bottom: 12px;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.btn-full:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}

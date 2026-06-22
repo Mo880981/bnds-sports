@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="BNDS 运动圈 — 运动动态">
+  <title>动态 · BNDS 运动圈</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/feed.css">
+</head>
+<body>
+
+  <div class="bg-layer" aria-hidden="true">
+    <div class="bg-orb bg-orb--1"></div>
+    <div class="bg-orb bg-orb--2"></div>
+    <div class="bg-noise"></div>
+  </div>
+
+  <nav class="nav">
+    <a class="nav-brand" href="index.html">
+      <div class="nav-title">BNDS<em>运动圈</em></div>
+    </a>
+    <div class="nav-links-inline app-nav">
+      <a href="checkin.html">打卡</a>
+      <a href="feed.html" class="active">动态</a>
+      <a href="buddy.html">约练</a>
+    </div>
+  </nav>
+
+  <main class="page feed-page">
+
+    <header class="feed-head">
+      <p class="section-index">Feed</p>
+      <h1>运动日常</h1>
+      <p>分享练后的感受，或关联一条打卡。已连接 Supabase 时，同学可以看到彼此动态。</p>
+      <div class="rainbow-rule"></div>
+      <p class="sync-bar" data-sync-status data-state="loading">连接中…</p>
+    </header>
+
+    <section class="compose" aria-label="发布动态">
+      <div class="compose-top"></div>
+      <div class="compose-body">
+        <div class="compose-user">
+          <div class="compose-avatar" id="compose-avatar">?</div>
+          <div class="compose-user-info">
+            <div class="compose-user-name" id="compose-name">未设置昵称</div>
+            <div class="compose-user-grade" id="compose-grade"></div>
+          </div>
+        </div>
+
+        <textarea
+          id="compose-text"
+          class="compose-textarea"
+          placeholder="今天练得怎么样？"
+          maxlength="500"
+        ></textarea>
+
+        <div class="compose-options">
+          <div class="sport-preview" id="sport-preview">
+            <span id="sport-preview-text"></span>
+            <span class="sport-preview-kcal" id="sport-preview-kcal"></span>
+          </div>
+          <div class="compose-row">
+            <select id="checkin-select" class="compose-select" aria-label="关联打卡">
+              <option value="">不关联打卡</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="compose-footer">
+          <span class="char-count" id="char-count">0 / 500</span>
+          <button type="button" class="btn btn-primary compose-submit" id="submit-post" disabled>
+            发布
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <p class="feed-empty" id="feed-empty" style="display:none">
+      还没有动态。写点什么，或者先去打卡吧。
+    </p>
+
+    <div class="feed-stream" id="feed-stream"></div>
+
+  </main>
+
+  <nav class="app-tabs" aria-label="主导航">
+    <a class="app-tab" href="checkin.html">打卡</a>
+    <a class="app-tab active" href="feed.html">动态</a>
+    <a class="app-tab" href="buddy.html">约练</a>
+  </nav>
+
+  <footer class="footer">
+    <span class="footer-brand">BNDS 运动圈</span>
+    <span class="footer-note">BNDS 运动圈 · Supabase 云端</span>
+  </footer>
+
+  <!-- 昵称设置 -->
+  <div class="profile-overlay" id="profile-overlay">
+    <div class="profile-box">
+      <div class="profile-box-top"></div>
+      <div class="profile-box-body">
+        <h2>设置昵称</h2>
+        <p>动态会显示这个名字。之后接入登录可改为真实身份。</p>
+        <div class="profile-field">
+          <label for="profile-name">昵称</label>
+          <input type="text" id="profile-name" class="profile-input" placeholder="怎么称呼你" maxlength="12">
+        </div>
+        <div class="profile-field">
+          <label for="profile-grade">年级（可选）</label>
+          <select id="profile-grade" class="profile-select">
+            <option value="">不显示</option>
+            <option value="高一">高一</option>
+            <option value="高二">高二</option>
+            <option value="高三">高三</option>
+          </select>
+        </div>
+        <p class="profile-error" id="profile-error"></p>
+        <button type="button" class="btn btn-primary btn-full" id="profile-confirm">确认</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/feed.js"></script>
+</body>
+</html>

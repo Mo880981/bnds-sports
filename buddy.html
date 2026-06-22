@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="BNDS 运动圈 — 约练搭子">
+  <title>约练 · BNDS 运动圈</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/feed.css">
+  <link rel="stylesheet" href="css/buddy.css">
+</head>
+<body>
+
+  <div class="bg-layer" aria-hidden="true">
+    <div class="bg-orb bg-orb--1"></div>
+    <div class="bg-orb bg-orb--2"></div>
+    <div class="bg-noise"></div>
+  </div>
+
+  <nav class="nav">
+    <a class="nav-brand" href="index.html">
+      <div class="nav-title">BNDS<em>运动圈</em></div>
+    </a>
+    <div class="nav-links-inline app-nav">
+      <a href="checkin.html">打卡</a>
+      <a href="feed.html">动态</a>
+      <a href="buddy.html" class="active">约练</a>
+    </div>
+  </nav>
+
+  <main class="page buddy-page">
+
+    <header class="buddy-head">
+      <p class="section-index">Buddy</p>
+      <h1>约练搭子</h1>
+      <p>发一条约练，找一起打球、跑步的同学。时间用「明天下午」「周六早上」这样写就行。</p>
+      <div class="rainbow-rule"></div>
+      <p class="sync-bar" data-sync-status data-state="loading">连接中…</p>
+    </header>
+
+    <section class="compose buddy-compose" aria-label="发布约练">
+      <div class="compose-top"></div>
+      <div class="compose-body">
+        <div class="compose-user">
+          <div class="compose-avatar" id="compose-avatar">?</div>
+          <div class="compose-user-info">
+            <div class="compose-user-name" id="compose-name">未设置昵称</div>
+            <div class="compose-user-grade" id="compose-grade"></div>
+          </div>
+        </div>
+
+        <div class="buddy-fields">
+          <div class="buddy-field">
+            <label class="field-label" for="sport-select">运动项目</label>
+            <select id="sport-select" class="compose-select" required>
+              <option value="">选择项目</option>
+              <option value="篮球">篮球</option>
+              <option value="足球">足球</option>
+              <option value="羽毛球">羽毛球</option>
+              <option value="乒乓球">乒乓球</option>
+              <option value="网球">网球</option>
+              <option value="排球">排球</option>
+              <option value="跑步">跑步</option>
+              <option value="游泳">游泳</option>
+              <option value="其他">其他</option>
+            </select>
+          </div>
+
+          <div class="buddy-field">
+            <label class="field-label" for="time-text">时间</label>
+            <input
+              type="text"
+              id="time-text"
+              class="field-input"
+              placeholder="例如：明天下午 / 周六早上 / 放学后"
+              maxlength="40"
+              required
+            >
+          </div>
+
+          <div class="buddy-field">
+            <label class="field-label" for="place-text">地点 / 备注（可选）</label>
+            <input
+              type="text"
+              id="place-text"
+              class="field-input"
+              placeholder="例如：东区篮球场 / 操场"
+              maxlength="60"
+            >
+          </div>
+
+          <div class="buddy-field buddy-field--row">
+            <div>
+              <label class="field-label" for="slots">缺几人</label>
+              <select id="slots" class="compose-select">
+                <option value="1">1 人</option>
+                <option value="2" selected>2 人</option>
+                <option value="3">3 人</option>
+                <option value="4">4 人</option>
+                <option value="5">5+ 人</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="buddy-field">
+            <label class="field-label" for="message-text">补充说明（可选）</label>
+            <textarea
+              id="message-text"
+              class="compose-textarea buddy-textarea"
+              placeholder="水平不限 / 自带球 / 体测前练练…"
+              maxlength="200"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="compose-footer">
+          <span class="char-count" id="char-count">0 / 200</span>
+          <button type="button" class="btn btn-primary compose-submit" id="submit-buddy" disabled>
+            发布约练
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <p class="buddy-empty" id="buddy-empty" style="display:none">
+      还没有约练。发第一条，等同学来加入吧。
+    </p>
+
+    <div class="buddy-stream" id="buddy-stream"></div>
+
+  </main>
+
+  <nav class="app-tabs" aria-label="主导航">
+    <a class="app-tab" href="checkin.html">打卡</a>
+    <a class="app-tab" href="feed.html">动态</a>
+    <a class="app-tab active" href="buddy.html">约练</a>
+  </nav>
+
+  <footer class="footer">
+    <span class="footer-brand">BNDS 运动圈</span>
+    <span class="footer-note">BNDS 运动圈 · Supabase 云端</span>
+  </footer>
+
+  <div class="profile-overlay hidden" id="profile-overlay">
+    <div class="profile-box">
+      <div class="profile-box-top"></div>
+      <div class="profile-box-body">
+        <h2>设置昵称</h2>
+        <p>约练会显示这个名字。之后接入登录可改为真实身份。</p>
+        <div class="profile-field">
+          <label for="profile-name">昵称</label>
+          <input type="text" id="profile-name" class="profile-input" placeholder="怎么称呼你" maxlength="12">
+        </div>
+        <div class="profile-field">
+          <label for="profile-grade">年级（可选）</label>
+          <select id="profile-grade" class="profile-select">
+            <option value="">不显示</option>
+            <option value="高一">高一</option>
+            <option value="高二">高二</option>
+            <option value="高三">高三</option>
+          </select>
+        </div>
+        <p class="profile-error" id="profile-error"></p>
+        <button type="button" class="btn btn-primary btn-full" id="profile-confirm">确认</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/buddy.js"></script>
+</body>
+</html>
